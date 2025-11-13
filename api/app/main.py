@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 import logging
 
 from .config import settings
-from .database import create_db_and_tables
+from .db.core import create_db_and_tables
 from .routes import router
 
 # Setup basic logging

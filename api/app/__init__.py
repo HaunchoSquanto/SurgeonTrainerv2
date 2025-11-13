@@ -1,5 +1,4 @@
 """API application package."""
 
-from .main import app
-
-__all__ = ["app"]
+# Don't import at module level to avoid circular dependencies
+__all__ = []

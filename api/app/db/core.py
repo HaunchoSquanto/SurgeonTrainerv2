@@ -4,25 +4,25 @@ Database core module - Connection management and session handling
 from sqlmodel import SQLModel, create_engine, Session
 from sqlalchemy.pool import StaticPool
 from typing import Generator
-from app.config import settings
+from ..config import settings
 
 # Create engine with connection pooling
-if settings.DATABASE_URL.startswith("sqlite"):
+if settings.database_url.startswith("sqlite"):
     # SQLite-specific configuration
     engine = create_engine(
-        settings.DATABASE_URL,
+        settings.database_url,
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
-        echo=settings.DEBUG
+        echo=settings.debug
     )
 else:
     # PostgreSQL or other databases
     engine = create_engine(
-        settings.DATABASE_URL,
+        settings.database_url,
         pool_pre_ping=True,
         pool_size=10,
         max_overflow=20,
-        echo=settings.DEBUG
+        echo=settings.debug
     )
 
 

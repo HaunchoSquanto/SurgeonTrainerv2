@@ -57,10 +57,6 @@ def create_patient_tool():
                     "zip_code": {
                         "type": "string",
                         "description": "ZIP code"
-                    },
-                    "chief_complaint": {
-                        "type": "string",
-                        "description": "Primary reason for visit or medical complaint"
                     }
                 },
                 "required": ["mrn", "first_name", "last_name", "date_of_birth", "sex"]
@@ -83,19 +79,14 @@ def search_patients_tool():
                         "type": "string",
                         "description": "Search term (name, MRN, email, phone)"
                     },
-                    "status": {
-                        "type": "string",
-                        "description": "Filter by patient status",
-                        "enum": ["active", "inactive", "admitted", "discharged", "deceased"]
-                    },
-                    "page": {
+                    "skip": {
                         "type": "integer",
-                        "description": "Page number for pagination",
-                        "default": 1
+                        "description": "Number of records to skip for pagination",
+                        "default": 0
                     },
-                    "page_size": {
+                    "limit": {
                         "type": "integer",
-                        "description": "Number of results per page",
+                        "description": "Maximum number of results to return",
                         "default": 10
                     }
                 },
@@ -149,12 +140,7 @@ def update_patient_tool():
                     "address": {"type": "string"},
                     "city": {"type": "string"},
                     "state": {"type": "string"},
-                    "zip_code": {"type": "string"},
-                    "status": {
-                        "type": "string",
-                        "enum": ["active", "inactive", "admitted", "discharged", "deceased"]
-                    },
-                    "chief_complaint": {"type": "string"}
+                    "zip_code": {"type": "string"}
                 },
                 "required": ["patient_id"]
             }
@@ -162,13 +148,13 @@ def update_patient_tool():
     }
 
 
-def create_visit_tool():
-    """Tool for recording a patient visit."""
+def create_encounter_tool():
+    """Tool for recording a patient encounter."""
     return {
         "type": "function",
         "function": {
-            "name": "create_visit",
-            "description": "Record a new visit/encounter for a patient.",
+            "name": "create_encounter",
+            "description": "Record a new encounter/visit for a patient. This is required before adding research case data.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -176,32 +162,92 @@ def create_visit_tool():
                         "type": "integer",
                         "description": "Database ID of the patient"
                     },
-                    "visit_date": {
+                    "encounter_date": {
                         "type": "string",
-                        "description": "Date of visit in YYYY-MM-DD format"
+                        "description": "Date of encounter in YYYY-MM-DD format"
                     },
-                    "visit_type": {
+                    "encounter_type": {
                         "type": "string",
-                        "description": "Type of visit (e.g., 'consultation', 'surgery', 'follow-up')"
+                        "description": "Type of encounter (e.g., 'consultation', 'surgery', 'follow-up')"
                     },
                     "chief_complaint": {
                         "type": "string",
                         "description": "Reason for visit"
-                    },
-                    "diagnosis": {
-                        "type": "string",
-                        "description": "Diagnosis or findings"
-                    },
-                    "treatment_plan": {
-                        "type": "string",
-                        "description": "Planned treatment or interventions"
                     },
                     "notes": {
                         "type": "string",
                         "description": "Additional clinical notes"
                     }
                 },
-                "required": ["patient_id", "visit_date"]
+                "required": ["patient_id", "encounter_date"]
+            }
+        }
+    }
+
+
+def create_research_case_tool():
+    """Tool for creating a research case (surgical procedure)."""
+    return {
+        "type": "function",
+        "function": {
+            "name": "create_research_case",
+            "description": "Create a research case record for a surgical procedure. Requires encounter_id and procedure type.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "procedure_type": {
+                        "type": "string",
+                        "description": "Type of procedure",
+                        "enum": [
+                            "rotator-cuff",
+                            "knee-surgical", 
+                            "shoulder-scope",
+                            "shoulder-arthroplasty",
+                            "hip-scope",
+                            "hip-arthroplasty",
+                            "knee-arthroplasty",
+                            "other"
+                        ]
+                    },
+                    "encounter_id": {
+                        "type": "integer",
+                        "description": "ID of the associated encounter"
+                    },
+                    "fellow_or_pa": {
+                        "type": "string",
+                        "description": "Fellow or PA performing/assisting"
+                    },
+                    "attending": {
+                        "type": "string",
+                        "description": "Attending surgeon"
+                    },
+                    "mrn": {
+                        "type": "string",
+                        "description": "Medical Record Number"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "Patient first name"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Patient last name"
+                    },
+                    "dob": {
+                        "type": "string",
+                        "description": "Date of birth (YYYY-MM-DD)"
+                    },
+                    "surgery_date": {
+                        "type": "string",
+                        "description": "Surgery date (YYYY-MM-DD)"
+                    },
+                    "laterality": {
+                        "type": "string",
+                        "description": "Surgical side",
+                        "enum": ["left", "right", "bilateral"]
+                    }
+                },
+                "required": ["procedure_type", "encounter_id"]
             }
         }
     }
@@ -213,7 +259,7 @@ def get_patient_stats_tool():
         "type": "function",
         "function": {
             "name": "get_patient_stats",
-            "description": "Get statistics about all patients in the system (total count, by status, etc.).",
+            "description": "Get statistics about all patients in the system (total count, etc.).",
             "parameters": {
                 "type": "object",
                 "properties": {},
@@ -230,6 +276,7 @@ def get_all_tools():
         search_patients_tool(),
         get_patient_tool(),
         update_patient_tool(),
-        create_visit_tool(),
+        create_encounter_tool(),
+        create_research_case_tool(),
         get_patient_stats_tool()
     ]

@@ -12,7 +12,20 @@ from alembic import context
 # Add the parent directory to the path so we can import the app
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.models import SQLModel, Patient, PatientVisit, PatientDocument
+# Import all models so Alembic can detect them
+from app.db.core import SQLModel
+from app.db.models.patient import Patient
+from app.db.models.encounter import Encounter
+from app.db.models.diagnosis import Diagnosis
+from app.db.models.procedure import Procedure
+from app.db.models.rc_rotatorcuff import RotatorCuffCase
+from app.db.models.rc_kneescope import KneeSurgicalCase
+from app.db.models.rc_shoulderscope import ShoulderScopeCase
+from app.db.models.rc_shoulderarthroplasty import ShoulderArthroplastyCase
+from app.db.models.rc_hipscope import HipScopeCase
+from app.db.models.rc_hiparthroplasty import HipArthroplastyCase
+from app.db.models.rc_kneearthroplasty import KneeArthroplastyCase
+from app.db.models.rc_other import OtherProcedureCase
 from app.config import settings
 
 # this is the Alembic Config object, which provides

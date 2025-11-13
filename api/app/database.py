@@ -35,7 +35,7 @@ def create_db_and_tables():
     Create database tables.
     For production, use Alembic migrations instead.
     """
-    from .models import Patient, PatientVisit, PatientDocument
+    from .db.models.models import Patient, PatientVisit, PatientDocument
     SQLModel.metadata.create_all(engine)
 
 

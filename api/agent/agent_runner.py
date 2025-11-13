@@ -146,13 +146,21 @@ def execute_tool(tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
             url = get_full_url(f"/patients/{patient_id}")
             response = requests.patch(url, json=arguments, timeout=TIMEOUT)
             
-        elif tool_name == "create_visit":
-            patient_id = arguments.pop("patient_id")
-            url = get_full_url(f"/patients/{patient_id}/visits")
+        elif tool_name == "create_encounter":
+            patient_id = arguments.pop("patient_id", None)
+            if patient_id:
+                url = get_full_url(f"/patients/{patient_id}/encounters")
+            else:
+                url = get_full_url("/encounters")
+            response = requests.post(url, json=arguments, timeout=TIMEOUT)
+            
+        elif tool_name == "create_research_case":
+            procedure_type = arguments.pop("procedure_type")
+            url = get_full_url(f"/rc/{procedure_type}")
             response = requests.post(url, json=arguments, timeout=TIMEOUT)
             
         elif tool_name == "get_patient_stats":
-            url = get_full_url("/patients/stats/overview")
+            url = get_full_url("/patients/stats")
             response = requests.get(url, timeout=TIMEOUT)
             
         else:
