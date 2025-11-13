@@ -12,7 +12,7 @@ from app.db.schemas.rc_shoulderscope import (
     RcShoulderScopeSurgicalResponse
 )
 
-router = APIRouter(prefix="/api/v1/rc/shoulderscope", tags=["Research: Shoulder Scope"])
+router = APIRouter()
 
 
 @router.post("/", response_model=RcShoulderScopeSurgicalResponse, status_code=201)

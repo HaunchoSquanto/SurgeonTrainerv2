@@ -12,7 +12,7 @@ from app.db.schemas.rc_rotatorcuff import (
     RcRotatorCuffResponse
 )
 
-router = APIRouter(prefix="/api/v1/rc/rotatorcuff", tags=["Research: Rotator Cuff"])
+router = APIRouter()
 
 
 @router.post("/", response_model=RcRotatorCuffResponse, status_code=201)

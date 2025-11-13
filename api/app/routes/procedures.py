@@ -8,7 +8,7 @@ from app.db.core import get_session
 from app.db.crud import procedure as crud
 from app.db.schemas.procedure import ProcedureCreate, ProcedureUpdate, ProcedureResponse
 
-router = APIRouter(prefix="/api/v1/procedures", tags=["Procedures"])
+router = APIRouter(tags=["Procedures"])
 
 
 @router.post("/", response_model=ProcedureResponse, status_code=201)

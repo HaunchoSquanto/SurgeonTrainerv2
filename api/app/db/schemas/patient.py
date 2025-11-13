@@ -9,9 +9,9 @@ from datetime import date, datetime
 class PatientBase(BaseModel):
     """Base patient fields used in multiple schemas"""
     mrn: str
-    first_name: str
+    first_name: Optional[str] = None
     middle_name: Optional[str] = None
-    last_name: str
+    last_name: Optional[str] = None
     date_of_birth: date
     sex: str
     email: Optional[EmailStr] = None

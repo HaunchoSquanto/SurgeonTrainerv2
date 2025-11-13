@@ -18,14 +18,14 @@ from app.db.models.patient import Patient
 from app.db.models.encounter import Encounter
 from app.db.models.diagnosis import Diagnosis
 from app.db.models.procedure import Procedure
-from app.db.models.rc_rotatorcuff import RotatorCuffCase
-from app.db.models.rc_kneescope import KneeSurgicalCase
-from app.db.models.rc_shoulderscope import ShoulderScopeCase
-from app.db.models.rc_shoulderarthroplasty import ShoulderArthroplastyCase
-from app.db.models.rc_hipscope import HipScopeCase
-from app.db.models.rc_hiparthroplasty import HipArthroplastyCase
-from app.db.models.rc_kneearthroplasty import KneeArthroplastyCase
-from app.db.models.rc_other import OtherProcedureCase
+from app.db.models.rc_rotatorcuff import RcRotatorCuff
+from app.db.models.rc_kneescope import RcKneeScope
+from app.db.models.rc_shoulderscope import RcShoulderScope
+from app.db.models.rc_shoulderarthroplasty import RcShoulderArthroplasty
+from app.db.models.rc_hipscope import RcHipScope
+from app.db.models.rc_hiparthroplasty import RcHipArthroplasty
+from app.db.models.rc_kneearthroplasty import RcKneeArthroplasty
+from app.db.models.rc_other import RcOther
 from app.config import settings
 
 # this is the Alembic Config object, which provides

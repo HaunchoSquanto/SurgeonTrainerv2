@@ -12,7 +12,7 @@ from app.db.schemas.rc_shoulderarthroplasty import (
     RcShoulderArthroplastySurgicalResponse
 )
 
-router = APIRouter(prefix="/api/v1/rc/shoulderarthroplasty", tags=["Research: Shoulder Arthroplasty"])
+router = APIRouter()
 
 
 @router.post("/", response_model=RcShoulderArthroplastySurgicalResponse, status_code=201)

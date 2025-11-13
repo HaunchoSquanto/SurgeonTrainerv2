@@ -17,9 +17,9 @@ class Patient(SQLModel, table=True):
     mrn: str = Field(unique=True, index=True, description="Medical Record Number")
     
     # Demographics
-    first_name: str = Field(max_length=100)
+    first_name: Optional[str] = Field(default=None, max_length=100)
     middle_name: Optional[str] = Field(default=None, max_length=100)
-    last_name: str = Field(max_length=100)
+    last_name: Optional[str] = Field(default=None, max_length=100)
     date_of_birth: date
     sex: str = Field(max_length=1, description="M/F/O")
     

@@ -8,7 +8,7 @@ from app.db.core import get_session
 from app.db.crud import diagnosis as crud
 from app.db.schemas.diagnosis import DiagnosisCreate, DiagnosisUpdate, DiagnosisResponse
 
-router = APIRouter(prefix="/api/v1/diagnoses", tags=["Diagnoses"])
+router = APIRouter(tags=["Diagnoses"])
 
 
 @router.post("/", response_model=DiagnosisResponse, status_code=201)

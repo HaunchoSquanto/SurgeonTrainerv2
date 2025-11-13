@@ -8,7 +8,7 @@ from app.db.core import get_session
 from app.db.crud import encounter as crud
 from app.db.schemas.encounter import EncounterCreate, EncounterUpdate, EncounterResponse
 
-router = APIRouter(prefix="/api/v1/encounters", tags=["Encounters"])
+router = APIRouter()
 
 
 @router.post("/", response_model=EncounterResponse, status_code=201)

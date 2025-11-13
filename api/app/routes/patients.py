@@ -8,7 +8,7 @@ from app.db.core import get_session
 from app.db.crud import patient as crud
 from app.db.schemas.patient import PatientCreate, PatientUpdate, PatientResponse
 
-router = APIRouter(prefix="/api/v1/patients", tags=["Patients"])
+router = APIRouter()
 
 
 @router.post("/", response_model=PatientResponse, status_code=201)

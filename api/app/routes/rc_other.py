@@ -12,7 +12,7 @@ from app.db.schemas.rc_other import (
     RcOtherSurgicalResponse
 )
 
-router = APIRouter(prefix="/api/v1/rc/other", tags=["Research: Other Procedures"])
+router = APIRouter()
 
 
 @router.post("/", response_model=RcOtherSurgicalResponse, status_code=201)
